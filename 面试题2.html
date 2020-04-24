@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style >
+.pic-inleft{width:450px;float: left;}
+.pic-inleftup{border: 1px solid #eee;margin-top: 10px;width: 450px;height: 450px;position: relative;}
+.pic-inleftup span{width:300px;height: 300px;background: yellow;opacity: 0.4;position: absolute;left: 0;top: 0;}
+.pic-inleftup img{height: 450px;width: 450px;}
+.pic-inleftmag{width:600px ;height:600px;position: absolute;top:200px;left: 800px;overflow: hidden;}
+.pic-inleftmag img{width:900px ;height:900px;position: absolute;}
+.hide{display: none}
+
+</style>
+
+<script src="jquery-1.11.3.min.js"></script>
+<body>
+
+<div class="pic-inleft">
+          <div class="pic-inleftup">
+            <img src="01.jpg" >
+           
+            <span class="hide"></span>
+          </div>
+          <div class="pic-inleftmag ">
+            <img src="01.jpg" class="hide" >
+            
+          </div>
+        </div>
+
+        <div class="colck">
+  倒计时：<p>60</p>
+  
+</div>
+<div class="go"><a href="面试题1.html"></a></div>
+
+</body>
+
+    <script>
+    var boxpic=$('.pic-inleftup')
+    var bigpic=$('.pic-inleftup').children()
+    var smapic=$('.iphon8');
+    var magpic=$('.pic-inleftmag').children()
+    var num=0;
+    smapic.mouseover(function(){
+      var _this=$(this).attr('data-i')
+      num=_this
+      console.log(_this)
+      bigpic.addClass('hide');
+      bigpic.eq(_this).removeClass('hide');
+      smapic.css({'border-color':' transparent'})
+      smapic.eq(_this).css({'border-color':' #e53e41'})
+      
+    })
+
+    boxpic.mousemove(function(ev){
+      magpic.addClass('hide')
+      magpic.eq(num).removeClass('hide');
+      bigpic.eq(5).removeClass('hide');
+      var _this=$(this)
+      var l=ev.pageX-_this.offset().left-$(".pic-inleftup span").width()/2;
+      var t=ev.pageY-_this.offset().top-$(".pic-inleftup span").height()/2;
+      if(l<0){l=0};
+      if(t<0){t=0};
+      var maxW=_this.width()-$(".pic-inleftup span").width();
+      var maxH=_this.height()-$(".pic-inleftup span").height();
+      if(l>maxW){l=maxW};
+      if(t>maxH){t=maxH};
+      $(".pic-inleftup span").show().css({"left":l,"top":t});
+      $(".pic-inleftmag").show();
+      $(".pic-inleftmag img").css({"left":-l*2,"top":-t*2});
+    })
+    boxpic.mouseleave(function(){
+            magpic.addClass('hide')
+            $('.pic-inleftup span').addClass('hide')
+            var attr=document.getElementsByClassName('pic-inleftmag')[0]
+            attr.setAttribute('style','display:none;')
+          })
+
+    //跳到面试题1
+      setInterval(function() {
+      
+           var num = $('.colck p').text() 
+           num--;
+ console.log(num)
+  $('.colck p').html(num);
+            if(num==0){
+              console.log("跳走咯")
+                 $(window).attr('location','面试题1.html');
+            }
+        }, 100);
+    </script>
+
+
+</html>

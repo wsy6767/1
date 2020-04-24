@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<script src="jquery-1.11.3.min.js"></script>
+
+<style >
+p{    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;}
+.box{width: 50%;height: 200px;text-align: center;}
+.imge{width: 20%;float: left;height: 100%;}
+.imge img{width: 50%;height: 25%;margin-top: 20%}
+.start{width: 20%;float: left;height: 100%;}
+.hour {width: 10%;float: left;height: 100%;}
+.hour img{width: 50%;height: 6%;}
+.end{width: 20%;float: left;height: 100%;}
+.price{width: 20%;float: left;height: 100%;}
+.button{width: 10%;float: left;height: 100%;}
+
+</style>
+<body>
+
+<div id="app">
+  <cpn></cpn>
+  <cpn></cpn>
+  <cpn></cpn>
+</div>
+<div class="colck">
+  倒计时：<p>60</p>
+  
+</div>
+<div class="go"><a href="面试题2.html"></a></div>
+
+<template id="cpn">
+  <div class="box" style="border: 1px soild black">
+  	<div class="imge">
+		  <img v-bind:src="car.carTypeImage" >
+      <p>{{car.carLong}}米&nbsp{{car.loadingType.desc}}</p>  
+  	</div>
+  	<div class="start" >
+      <p style="margin-top: 3em"><!-- {{startAddress.province.name}} -->{{startAddress.city.name}}{{startAddress.district.name}}</p>  
+      <p>载货体积：{{car.carLong}}*{{car.carHeight}}*{{car.carWidth}}m</p>  
+
+    </div>
+  	<div class="hour">
+      <p style="margin-top: 3em">{{hoursLength}}h</p>  
+      <img src="icon.png" >
+      <p>{{distance}}km</p>  
+        
+    </div>
+  	<div class="end">
+      <p style="margin-top: 3em"><!-- {{startAddress.province.name}} -->{{endAddress.city.name}}{{endAddress.district.name}}</p>  
+      <p>载货重量：{{car.carLoad}}吨</p>  
+    </div>
+  	<div class="price">
+      <p style="margin-top: 3em;color:#e96900">一口价：￥{{price}}</p>  
+      <p>累计已发：{{usageCount}}次</p>  
+    </div>
+  	<div class="button">
+        <button style="margin-top: 4em;background-color:#e96900;width: 100%;height: 20%">立即用车</button>
+    </div>
+    
+  </div>
+</template>
+
+<script src="vue.js"></script>
+<script>
+
+  // 1.注册一个全局组件
+  Vue.component('cpn', {
+    template: '#cpn',
+    data() {
+      return {
+      "id" : 1,
+      "lineNo" : "10000000000000",
+      "distance" : 0.63,
+      "hoursLength" : 0.37,
+      "price" : 11122.32,
+      "usageCount" : 0,
+      "startAddress" : {
+        "province" : {
+          "name" : "山西省",
+          "code" : "140000",
+          "level" : {
+            "value" : "first",
+            "desc" : "first level"
+          },
+          "postCode" : "",
+          "longitude" : "112.549248",
+          "latitude" : "37.857014"
+        },
+        "city" : {
+          "name" : "太原市",
+          "code" : "140100",
+          "level" : {
+            "value" : "second",
+            "desc" : "second level"
+          },
+          "postCode" : "030082",
+          "longitude" : "112.549248",
+          "latitude" : "37.857014"
+        },
+        "district" : {
+          "name" : "晋源区",
+          "code" : "140110",
+          "level" : {
+            "value" : "third",
+            "desc" : "third level"
+          },
+          "postCode" : "030025",
+          "longitude" : "112.47985",
+          "latitude" : "37.72479"
+        },
+        "street" : null,
+        "detailAddress" : null
+      },
+      "endAddress" : {
+        "province" : {
+          "name" : "内蒙古自治区",
+          "code" : "150000",
+          "level" : {
+            "value" : "first",
+            "desc" : "first level"
+          },
+          "postCode" : "",
+          "longitude" : "111.670801",
+          "latitude" : "40.818311"
+        },
+        "city" : {
+          "name" : "包头市",
+          "code" : "150200",
+          "level" : {
+            "value" : "second",
+            "desc" : "second level"
+          },
+          "postCode" : "014025",
+          "longitude" : "109.840405",
+          "latitude" : "40.658168"
+        },
+        "district" : {
+          "name" : "东河区",
+          "code" : "150202",
+          "level" : {
+            "value" : "third",
+            "desc" : "third level"
+          },
+          "postCode" : "014040",
+          "longitude" : "110.0462",
+          "latitude" : "40.58237"
+        },
+        "street" : null,
+        "detailAddress" : null
+      },
+      "car" : {
+        "id" : 3,
+        "typeName" : "小微货",
+        "typeDesc" : "≤80km运输，可在日用品、生鲜、建材、小家具、纺织品",
+        "loadingType" : {
+          "value" : "low_bar",
+          "desc" : "低栏"
+        },
+        "carLong" : 2.70,
+        "carLoad" : 1500.00,
+        "carHeight" : 1.50,
+        "carWidth" : 1.70,
+        "loadVolume" : 6.88,
+        "carTypeImage" : '01.jpg'
+      }
+    }
+    }
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      // title: '我是标题'
+    }
+  })
+
+  setInterval(function() {
+      
+           var num = $('.colck p').text() 
+           num--;
+ console.log(num)
+  $('.colck p').html(num);
+            if(num==0){
+              console.log("跳走咯")
+                 $(window).attr('location','面试题2.html');
+            }
+        }, 100);
+
+
+</script>
+
+</body>
+
+</html>
